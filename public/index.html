@@ -1,0 +1,45 @@
+<! doctype html>
+<html ng-app="App">
+	<head>
+		<title>Retrodea</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap-theme.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+
+		<script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/vendor/angular/angular.min.js"/></script>
+			<script type="text/javascript" src="js/vendor/angular/angular-resource.js"/></script>
+		<script type="text/javascript" src="js/vendor/angular/angular-route.js"/></script>
+		<script type="text/javascript" src="js/vendor/angular/angular-cookies.js"/></script>
+		<script type="text/javascript" src="js/vendor/angular/angular-animate.js"/></script>
+		<script type="text/javascript" src="js/vendor/angular-ui/ui-bootstrap-tpls-0.11.0.min.js"/></script>
+		<script type="text/javascript" src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"/></script>
+		<script type="text/javascript" src="js/vendor/firebase/angularfire.min.js"/></script>
+		<script type="text/javascript" src="js/app/app.js"/></script>
+		<script type="text/javascript" src="js/app/controllers/retroController.js"/></script>
+		<script type="text/javascript" src="services/project.js"/></script>
+	</head>
+	<body>
+		<section>
+			<header class="container-fluid">
+				<div class="row"> 
+					<div class=" col-md-8 logo">
+						<a href="#"><h3>Retrodea</h3></a>
+					</div>
+					<!-- <div class=" col-md-4 logo" ng-controller="ProjectController">
+						<a href="#"><h3>Welcome  {{currUserName}}</h3></a>
+					</div> -->
+				</div>
+			</header>
+		</section>
+		<div class="main-wrapper">
+			<div ng-view></div>
+		</div>	
+	<hr/>
+	<footer class="container-fluid">
+
+		&copy; 2014 Vipin Dubey
+	</footer>
+	</body>
+</html>

@@ -1,0 +1,130 @@
+
+<div class="oveall-wrapper" ng-controller="ProjectController">
+<div class="popup-share-url center-wrapper" ng-show="firstLoad" class="repeat-item">
+	<div class="share-this-url">
+		<h4>Share the url given below with other team members.</h4>
+		<span class="url">{{projectURI}}</span><br/>
+		<img class="close" ng-click="closeShare()" src="images/icons/16/bin-3.png"/>
+	</div>
+</div>
+<div class="center-wrapper" ng-hide="userloggedIn" ng-controller="ProjectController">
+<div class="user-sign-in">
+	    <h3>Sign in to retro for <span class="bg-info title"> {{project.name}}</span></h3>
+	    <hr/>
+	    <div class="align-right">
+			<form ng-submit="addParticipant()">
+				<input id="nUser" placeholder="Your Full Name" ng-model="newUser" required/><br/>
+				<input type="email" id="nUserEmail" placeholder="Your Email" ng-model="newUserEmail" required/><br/>
+				<input type="submit" value="Continue" class="btn btn-primary"/>
+				<span class="error" ng-show="input.$error.required">Required!</span>
+  				<span class="error" ng-show="input.$error.email">Not valid email!</span>
+			</form>
+		</div>
+
+</div>
+</div>
+
+<div class="main-content" ng-show="userloggedIn">
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 project-title-bar">
+				<span class="p-name">{{project.name}}</span><span>[<a href="#/projects">Show All Projects</a>]</span>
+				 <!-- <input type="text" ng-model="search" class="search-query" style="width: 80px"> -->
+			</div>
+			<div class="col-md-2 title center">
+				<span>Participants</span>
+			</div>
+			<div class="col-md-6 participants">
+				<span ng-repeat="participant in project.participants" class="bg-success">{{participant.name}}</span>
+			</div>
+		</div>
+		<hr/>
+		<!-- <div class="row">
+			<div class="col-md-4 add-like">
+				<span>What went well</span><button id="add-like-button" class="btn btn-primary">Add</button>
+			</div>
+			<div class="col-md-4 add-dislike">
+				<span>What can be improved</span><button id="add-dislike-button" class="btn btn-primary">Add</button>
+			</div>
+			<div class="col-md-4 add-suggestion">
+			  <span>Action items</span><button id="add-suggestion-button" class="btn btn-primary">Add</button>
+			</div>	
+	   </div> -->
+      
+	   
+
+	   <div class="row likes-dislikes-suggestions">
+	   		<div class="col-md-4 likes">
+	   			<div class="add-like">
+				<span>What went well</span><span ng-click="addTextArea('add-like')"><img src="images/icons/32/add.png"></span>
+				</div>
+				 <hr/>
+	   			<div class="input-likes">
+					<textarea id="nLike" placeholder="" ng-keypress="addLike($event)" ng-model="newLike" autofocus required></textarea>
+					<div class="word-count" ng-bind="countOf(newLike)"></div>
+				</div>
+			   	<div ng-repeat="(id,like) in project.likes" class="repeat-item">
+			   		   <div class="col-md-6 box bg-success">
+						<span class="content">{{like.content}}</span>
+						<div class="row options">
+							<hr/>
+							<!--for like dislike--> 
+							<span class="col-md-4"><a href="" ng-click="addLikeCount(id,'like-section')" class="like-count-button {{id}}" ><img src="images/icons/16/heart-empty.png"></a>{{like.count}}</span>
+							<!--for editing--> 
+							<span class="col-md-4"><a href="javascript:" ng-click="editLike(id)" class="edit-button"><img src="images/icons/16/pencil.png"></a></span>
+							<!--for deleting--> 
+							<span class="col-md-4"><a href="" ng-click="deleteLike(id)" class="delete-button"><img src="images/icons/16/bin-3.png"></a></span>
+						</div>
+					   </div>
+				</div>
+			</div>
+
+			<div class="col-md-4 dislikes">
+				<div class="add-dislike">
+				<span>What can be improved</span><span ng-click="addTextArea('add-dislike')"><img src="images/icons/32/add.png"></span>
+			    </div>
+			     <hr/>
+				<div class="input-dislikes">
+					<textarea id="nDislike" placeholder="" ng-keypress="addDislike($event)" ng-model="newDislike" autofocus required></textarea>
+					<div class="word-count" ng-bind="countOf(newDislike)"></div>
+				</div>
+			   	<div ng-repeat="(id,dislike) in project.dislikes" class="repeat-item">
+			   		<div class="col-md-6 box bg-warning">
+						<span class="content">{{dislike.content}}</span>
+						<div class="row options">
+							<hr/>
+							<span class="col-md-4"><a href="" ng-click="addLikeCount(id,'dislike-section')" class="like-count-button {{id}}" ><img src="images/icons/16/heart-empty.png"></a>{{dislike.count}}</span>
+							<span class="col-md-4"><a href="javascript:" ng-click="editDislike(id)" class="edit-button"><img src="images/icons/16/pencil.png"></a></span>
+							<span class="col-md-4"><a href="" ng-click="deleteDislike(id)" class="delete-button"><img src="images/icons/16/bin-3.png"></a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 suggestions">
+				<div class="add-suggestion">
+			  		<span>Action items</span><span ng-click="addTextArea('add-suggestion')"><img src="images/icons/32/add.png"></span>
+				</div>
+				 <hr/>	
+				 <div class="input-suggestions">
+					<textarea  id="nSuggestion" placeholder="" ng-keypress="addSuggestion($event)" ng-model="newSuggestion" autofocus required></textarea> 
+					<div class="word-count" ng-bind="countOf(newSuggestion)"></div>
+			    </div>
+			   	<div ng-repeat="(id,suggestion) in project.suggestions" class="repeat-item">
+			   		<div class="col-md-6 box bg-info">
+						<span class="content">{{suggestion.content}}</span>
+						<div class="row options">
+							<hr/>
+						<span class="col-md-4"><a href="" ng-click="addLikeCount(id,'suggestion-section')" class="like-count-button {{id}}" ><img src="images/icons/16/heart-empty.png"></a>{{suggestion.count}}</span>	
+						<span class="col-md-4"><a href="javascript:" ng-click="editSuggestion(id)" class="edit-button"><img src="images/icons/16/pencil.png"></a></span>
+						<span class="col-md-4"><a href="" ng-click="deleteSuggestion(id)" class="delete-button"><img src="images/icons/16/bin-3.png"></a></span>
+					</div>
+					</div>
+				</div>
+			</div>
+	   </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="js/app/main.js"></script>

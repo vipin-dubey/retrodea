@@ -1,0 +1,36 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 intro bg-whitesmoke">
+			<h3>How it works</h4>
+			<hr/>
+			
+				
+					<h4>1. Create a new Retro Session</h4>
+				
+					
+					<h4>2. Share URL provided after creating session with other team members</h4>
+				
+					
+					<h4>3. Track who has joined in participants section (top right corner)</h4>
+					<img class="img-thumbnail" src="images/participants.jpg"/>
+				
+					
+					<h4>4. All the inputs will be updated in real time to all participants.</h4>
+					<img class="img-thumbnail" src="images/demo1.jpg"/>
+				
+			
+		</div>
+		<div class="col-md-4 create-new" ng-controller="MainController">
+			    <h3>Start a New Retro Session</h3>
+			    <hr/>
+			    <form ng-submit="addProject()">
+			    <input id="nFName" placeholder="Your Full Name" ng-model="newFullName" autofocus required><br/>
+			    <input type="email" id="nEmail" placeholder="Your Email"  ng-model="newEmail" autofocus required><br/>
+				<input id="nProject" placeholder="Project Name" ng-model="newProject" autofocus required><br/>
+				<input type="submit" value="Create" class="btn btn-primary"/>
+				<span class="error" ng-show="input.$error.required">Required!</span>
+  				<span class="error" ng-show="input.$error.email">Not valid email!</span>
+				</form>
+		</div>
+	</div>
+</div>
