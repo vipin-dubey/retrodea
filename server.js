@@ -1,5 +1,5 @@
 var express = require('express');
-var mongoose = require('mongoose');
+var db = require('./model/db')
 var bcrypt = require('bcryptjs');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -9,6 +9,15 @@ var bodyParser = require('body-parser');
 
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
+
+var likes = routes('./routes/likes');
+var dislikes = routes('./routes/dislikes');
+var suggestions = routes('./routes/suggestions');
+var participants = routes('./routes/participants');
+var retros = routes('./routes/retros');
+var projects = routes('./routes/projects');
+
+
 
 var app = express();
 
@@ -24,7 +33,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', routes);
-//app.use('/users', users);
+//app.use('/api/projects', projects);
+
+app.post('/like/add',likes.add); // create new like
+app.post('/like/edit',likes.edit); 
+app.post('/like/delete',likes.doDelete); 
+
+app.post('/dislike/add',dislikes.add); // create new like
+app.post('/dislike/edit',dislikes.edit); 
+app.post('/dislike/delete',dislikes.doDelete); 
+
+app.post('/suggestion/add',suggestions.add); // create new like
+app.post('/suggestion/edit',suggestions.edit); 
+app.post('/suggestion/delete',suggestions.doDelete); 
+
+
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
