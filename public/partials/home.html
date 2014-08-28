@@ -3,8 +3,6 @@
 		<div class="col-md-8 intro bg-whitesmoke">
 			<h3>How it works</h4>
 			<hr/>
-			
-				
 					<h4>1. Create a new Retro Session</h4>
 				
 					
@@ -24,9 +22,9 @@
 			    <h3>Start a New Retro Session</h3>
 			    <hr/>
 			    <form ng-submit="addProject()">
-			    <input id="nFName" placeholder="Your Full Name" ng-model="newFullName" autofocus required><br/>
-			    <input type="email" id="nEmail" placeholder="Your Email"  ng-model="newEmail" autofocus required><br/>
-				<input id="nProject" placeholder="Project Name" ng-model="newProject" autofocus required><br/>
+			    <input id="nFName" placeholder="Your Full Name" ng-model="project.fullName" autofocus required><br/>
+			    <input type="email" id="nEmail" placeholder="Your Email"  ng-model="project.userEmail" autofocus required><br/>
+				<input id="nProject" placeholder="Project Name" ng-model="project.name" autofocus required><br/>
 				<input type="submit" value="Create" class="btn btn-primary"/>
 				<span class="error" ng-show="input.$error.required">Required!</span>
   				<span class="error" ng-show="input.$error.email">Not valid email!</span>

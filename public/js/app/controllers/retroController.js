@@ -3,14 +3,31 @@
 var AppControllers = angular.module('AppControllers',[]);
 
 
-AppControllers.controller('MainController','Project',function($scope,$location,$firebase,$cookieStore,Project){
+AppControllers.controller('MainController',function($scope,$location,$firebase,$cookieStore,$routeParams,Project){
 	
 
-	$scope.projects = Project.query();
+	$scope.projects = Project.index();
+    console.log("All projects :" +$scope.projects);
 
+    $scope.project = new Project();
+           
 
     $scope.addProject = function(){
-     
+               console.log("submit");
+
+                function success(response) {
+                    console.log("success", response)
+                    //$location.path("/Projects");
+                }
+
+                function failure(response) {
+                     console.log("failure", response);
+                 }
+
+              
+                    console.log("project data is:"+$scope.project);
+                    Project.create($scope.project, success, failure);
+                    $scope.project = '';
     }
 
     $scope.editProject = function(id){
@@ -33,7 +50,7 @@ AppControllers.controller('MainController','Project',function($scope,$location,$
 
 
 
-AppControllers.controller('ProjectController',function($scope,$location,$firebase,$cookieStore,$route){
+AppControllers.controller('ProjectController',function($scope,$location,$firebase,$cookieStore,$route,$resource){
     //CREATE A FIREBASE
     
 

@@ -1,7 +1,7 @@
 'use strict';
 
 /* App Module */
-var App = angular.module('App',['ngRoute','AppControllers','firebase','ngCookies','ngAnimate']);
+var App = angular.module('App',['ngRoute','AppControllers','firebase','ngCookies','ngAnimate','ngResource']);
 
 App.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
@@ -23,6 +23,15 @@ App.config(['$routeProvider', function($routeProvider) {
   }]);
 
 
-App.factory('Project', ['$resource', function($resource) {
-    return $resource('/api/projects/:_id');
-  }]);
+App.factory('Project', function($resource) {
+    return $resource('/api/projects/:_id',{ id:'@_id'},
+    {
+      'create':{method:'POST'},
+      'index': {method:'GET',isArray:true},
+      'show':{method:'GET',isArray:false},
+      'update':{method:'PUT'},
+      'destroy':{method:'DELETE'}
+    }
+
+      );
+  });

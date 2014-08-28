@@ -1,5 +1,5 @@
 // Bring Mongoose into the project
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
 
 // Build the connection string
 var dbURI = 'mongodb://localhost:27017/retrodea';
@@ -26,9 +26,7 @@ process.on('SIGINT', function() {
   });
 });
 
-
-
-var likeSchema = new mongoos.Schema({
+var likeSchema = new mongoose.Schema({
 	content:String,
 	count:Number
 });
@@ -36,7 +34,7 @@ var likeSchema = new mongoos.Schema({
 // build the like model
 mongoose.model( 'Like', likeSchema );
 
-var dislikeSchema = new mongoos.Schema({
+var dislikeSchema = new mongoose.Schema({
 	content:String,
 	count:Number
 });
@@ -44,7 +42,7 @@ var dislikeSchema = new mongoos.Schema({
 //build the dislike model
 mongoose.model('Dislike',dislikeSchema);
 
-var suggestionSchema = new mongoos.Schema({
+var suggestionSchema = new mongoose.Schema({
 	content:String,
 	count:Number
 });
@@ -52,34 +50,40 @@ var suggestionSchema = new mongoos.Schema({
 //build the suggestion model
 mongoose.model('Suggestion',suggestionSchema); 
 
-var participantSchema = new mongoos.Schema({
+var participantSchema = new mongoose.Schema({
 	name:String,
 	email:{type:String,unique:true}
 });
 
 //build the participant model
-mongoose.model('Suggestion',participantSchema); 
+mongoose.model('Participant',participantSchema); 
 
-var retroSchema = new mongoos.Schema({
-	name:String
-	createdOn:{type:date,default:Date.now,
+var retroSchema = new mongoose.Schema({
+	name:String,
+	createdOn:{type:Date,default:Date.now},
 	owner:String,
-	likes:[likeSchema],
-	dislikes[dislikeSchema],
-	suggestions:[suggestionSchema],
-	participants:[participantSchema]	
-	}
+	likes:[{type:mongoose.Schema.ObjectId,ref:'likeSchema'}],
+	dislikes:[{type:mongoose.Schema.ObjectId,ref:'dislikeSchema'}],
+	suggestions:[{type:mongoose.Schema.ObjectId,ref:'suggestionSchema'}],
+	participants:[{type:mongoose.Schema.ObjectId,ref:'participantSchema'}]	
 })
 
 //build the retro model
 mongoose.model('Retro',retroSchema); 
 
-var projectSchema = new mongoos.Schema({
-	Name:String,
+var projectSchema = new mongoose.Schema({
+	fullName:String,
+	userEmail:String,
+	name:String,
 	createdOn:{type:Date, default:Date.now},
-	owner:String
-	retros:[retroSchema]
+	retros:[{type:mongoose.Schema.ObjectId,ref:'retroSchema'}]
 })
 
 //build the project model
 mongoose.model('Project',projectSchema); 
+
+var retrodeaAppSchema = new mongoose.Schema({
+	projects:[{type:mongoose.Schema.ObjectId,ref:'projectSchema'}]
+})
+
+mongoose.model('RetrodeaApp',retrodeaAppSchema); 
