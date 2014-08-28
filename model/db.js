@@ -26,64 +26,29 @@ process.on('SIGINT', function() {
   });
 });
 
-var likeSchema = new mongoose.Schema({
-	content:String,
-	count:Number
-});
-
-// build the like model
-mongoose.model( 'Like', likeSchema );
-
-var dislikeSchema = new mongoose.Schema({
-	content:String,
-	count:Number
-});
-
-//build the dislike model
-mongoose.model('Dislike',dislikeSchema);
-
-var suggestionSchema = new mongoose.Schema({
-	content:String,
-	count:Number
-});
-
-//build the suggestion model
-mongoose.model('Suggestion',suggestionSchema); 
-
-var participantSchema = new mongoose.Schema({
-	name:String,
-	email:{type:String,unique:true}
-});
-
-//build the participant model
-mongoose.model('Participant',participantSchema); 
-
-var retroSchema = new mongoose.Schema({
-	name:String,
-	createdOn:{type:Date,default:Date.now},
-	owner:String,
-	likes:[{type:mongoose.Schema.ObjectId,ref:'likeSchema'}],
-	dislikes:[{type:mongoose.Schema.ObjectId,ref:'dislikeSchema'}],
-	suggestions:[{type:mongoose.Schema.ObjectId,ref:'suggestionSchema'}],
-	participants:[{type:mongoose.Schema.ObjectId,ref:'participantSchema'}]	
-})
-
-//build the retro model
-mongoose.model('Retro',retroSchema); 
-
 var projectSchema = new mongoose.Schema({
 	fullName:String,
 	userEmail:String,
 	name:String,
 	createdOn:{type:Date, default:Date.now},
-	retros:[{type:mongoose.Schema.ObjectId,ref:'retroSchema'}]
+	retros:[{
+			name:String,
+			createdOn:{type:Date,default:Date.now},
+			owner:String,
+			likes:[{content:String,
+				count:Number
+				  	}],
+			dislikes:[{content:String,
+					count:Number
+				    }],
+			suggestions:[{content:String,
+					count:Number
+				    }],
+			participants:[{name:String,
+						 	email:String
+					}]	
+			}],
 })
 
 //build the project model
 mongoose.model('Project',projectSchema); 
-
-var retrodeaAppSchema = new mongoose.Schema({
-	projects:[{type:mongoose.Schema.ObjectId,ref:'projectSchema'}]
-})
-
-mongoose.model('RetrodeaApp',retrodeaAppSchema); 
