@@ -1,5 +1,5 @@
 
-<div class="oveall-wrapper" ng-controller="ProjectController">
+<div class="oveall-wrapper" ng-controller="RetroController">
 <div class="popup-share-url center-wrapper" ng-show="firstLoad" class="repeat-item">
 	<div class="share-this-url">
 		<h4>Share the url given below with other team members.</h4>
@@ -7,9 +7,9 @@
 		<img class="close" ng-click="closeShare()" src="images/icons/16/bin-3.png"/>
 	</div>
 </div>
-<div class="center-wrapper" ng-hide="userloggedIn" ng-controller="ProjectController">
+<div class="center-wrapper" ng-hide="userloggedIn" ng-controller="RetroController">
 <div class="user-sign-in">
-	    <h3>Sign in to retro for <span class="bg-info title"> {{project.name}}</span></h3>
+	    <h3>Sign in to retro for <span class="bg-info title"> {{retro.name}}</span></h3>
 	    <hr/>
 	    <div class="align-right">
 			<form ng-submit="addParticipant()">
@@ -28,14 +28,14 @@
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4 project-title-bar">
-				<span class="p-name">{{project.name}}</span><span>[<a href="#/projects">Show All Projects</a>]</span>
+				<span class="p-name">{{retro.name}}</span><span>[<a href="#/projects">Show All Projects</a>]</span>
 				 <!-- <input type="text" ng-model="search" class="search-query" style="width: 80px"> -->
 			</div>
 			<div class="col-md-2 title center">
 				<span>Participants</span>
 			</div>
 			<div class="col-md-6 participants">
-				<span ng-repeat="participant in project.participants" class="bg-success">{{participant.name}}</span>
+				<span ng-repeat="participant in retro.participants" class="bg-success">{{participant.name}}</span>
 			</div>
 		</div>
 		<hr/>
@@ -63,7 +63,7 @@
 					<textarea id="nLike" placeholder="" ng-keypress="addLike($event)" ng-model="newLike" autofocus required></textarea>
 					<div class="word-count" ng-bind="countOf(newLike)"></div>
 				</div>
-			   	<div ng-repeat="(id,like) in project.likes" class="repeat-item">
+			   	<div ng-repeat="(id,like) in retro.likes" class="repeat-item">
 			   		   <div class="col-md-6 box bg-success">
 						<span class="content">{{like.content}}</span>
 						<div class="row options">
@@ -88,7 +88,7 @@
 					<textarea id="nDislike" placeholder="" ng-keypress="addDislike($event)" ng-model="newDislike" autofocus required></textarea>
 					<div class="word-count" ng-bind="countOf(newDislike)"></div>
 				</div>
-			   	<div ng-repeat="(id,dislike) in project.dislikes" class="repeat-item">
+			   	<div ng-repeat="(id,dislike) in retro.dislikes" class="repeat-item">
 			   		<div class="col-md-6 box bg-warning">
 						<span class="content">{{dislike.content}}</span>
 						<div class="row options">
@@ -110,7 +110,7 @@
 					<textarea  id="nSuggestion" placeholder="" ng-keypress="addSuggestion($event)" ng-model="newSuggestion" autofocus required></textarea> 
 					<div class="word-count" ng-bind="countOf(newSuggestion)"></div>
 			    </div>
-			   	<div ng-repeat="(id,suggestion) in project.suggestions" class="repeat-item">
+			   	<div ng-repeat="(id,suggestion) in retro.suggestions" class="repeat-item">
 			   		<div class="col-md-6 box bg-info">
 						<span class="content">{{suggestion.content}}</span>
 						<div class="row options">

@@ -26,12 +26,7 @@ process.on('SIGINT', function() {
   });
 });
 
-var projectSchema = new mongoose.Schema({
-	fullName:String,
-	userEmail:String,
-	name:String,
-	createdOn:{type:Date, default:Date.now},
-	retros:[{
+var retroSchema = new mongoose.Schema({
 			name:String,
 			createdOn:{type:Date,default:Date.now},
 			owner:String,
@@ -46,8 +41,17 @@ var projectSchema = new mongoose.Schema({
 				    }],
 			participants:[{name:String,
 						 	email:String
-					}]	
-			}],
+					}]
+});
+
+mongoose.model('Retro',retroSchema); 
+
+var projectSchema = new mongoose.Schema({
+	fullName:String,
+	userEmail:String,
+	name:String,
+	createdOn:{type:Date, default:Date.now},
+	retros:[{type:mongoose.Schema.Types.Mixed,ref:retroSchema}]
 })
 
 //build the project model

@@ -16,10 +16,11 @@ var bodyParser = require('body-parser');
 //var participants = require('./routes/participants');
 //var retros = require('./routes/retros');
 var projects = require('./routes/projects');
+var retros = require('./routes/retros');
 
 
 
-var app = express();
+var app = module.exports = express();
 
 
 
@@ -40,8 +41,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/api/projects',projects.projects);
 app.get('/api/projects/:id',projects.project);
 app.post('/api/projects',projects.createProject);
-//app.put('api/project/:id',projects.updateProject);
-//app.delete('api/project/:id',projects.destroyProject);
+app.put('/api/projects/:id',projects.updateProject);
+app.delete('/api/projects/:id',projects.destroyProject);
+
+app.get('/api/retros',retros.retros);
+app.get('/api/retros/:id',retros.retro);
+app.post('/api/retros',retros.createRetro);
+app.put('/api/retros/:id',retros.updateRetro);
+app.delete('/api/retros/:id',retros.destroyRetro);
 
 
 /// catch 404 and forward to error handler

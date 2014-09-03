@@ -3,21 +3,24 @@
 var AppControllers = angular.module('AppControllers',[]);
 
 
-AppControllers.controller('MainController',function($scope,$location,$firebase,$cookieStore,$routeParams,Project){
+AppControllers.controller('ProjectController',function($scope,$location,$cookieStore,$resource,$routeParams,Project,Retro){
 	
 
 	$scope.projects = Project.index();
-    console.log("All projects :" +$scope.projects);
+
+    console.log($scope.projects);
 
     $scope.project = new Project();
-           
+ 
+ //functions to handle projects           
 
     $scope.addProject = function(){
                console.log("submit");
 
                 function success(response) {
                     console.log("success", response)
-                    //$location.path("/Projects");
+                    $scope.project = response;
+                    $scope.addRetro(response);    
                 }
 
                 function failure(response) {
@@ -25,53 +28,103 @@ AppControllers.controller('MainController',function($scope,$location,$firebase,$
                  }
 
               
-                    console.log("project data is:"+$scope.project);
-                    Project.create($scope.project, success, failure);
-                    $scope.project = '';
+                console.log("project data is:"+$scope.project);
+                Project.create($scope.project, success, failure);
+                //$scope.project = '';
     }
 
-    $scope.editProject = function(id){
-    
+    $scope.editProject = function(){
+               function success(response) {
+                    console.log("success", response)
+                    //$location.path("/projects");
+                }
+
+                function failure(response) {
+                     console.log("failure", response);
+                 }
+
+                Project.update($scope.project, success, failure);
     }
 
 
 
-    $scope.deleteProject = function(id){
+    $scope.deleteProject = function(project){
 
-    	
+                function success(response) {
+                    console.log("success", response)
+                    $location.path("/projects");
+                }
+
+                function failure(response) {
+                     console.log("failure", response);
+                 }
+
+             Project.destroy(project, success, failure);   	
     }
 
-    $scope.showProject = function(id){
- 
+    $scope.showProject = function(project){
+        console.log("project id is :"+project._id);
+        $location.path("/home/"+project._id);
     } 
+
+    // Functions to hanle retros
+
+    $scope.addRetro = function(project){
+               console.log("submit");
+
+               var retro = new Retro();
+
+               retro.name = project.name;
+               retro.fullName = project.fullName;
+               retro.owner = project.userEmail;
+
+                function success(response) {
+                    console.log("success", response)
+                    $scope.project.retros.push(response);
+                    console.log("tryind to add retros to project");
+                    console.log($scope.project);
+                    $scope.editProject();
+                    $location.path("/home/"+response._id);
+                }
+
+                function failure(response) {
+                     console.log("failure", response);
+                 }
+
+              
+                console.log("project data is:"+$scope.project);
+                Retro.create(retro, success, failure);
+                retro = '';
+    }
 
 				
 });
 
 
 
-AppControllers.controller('ProjectController',function($scope,$location,$firebase,$cookieStore,$route,$resource){
+AppControllers.controller('RetroController',function($routeParams,$scope,$location,$cookieStore,$route,$resource,Project,Retro){
     //CREATE A FIREBASE
     
 
     var href = $location.$$path;
     //console.log($location);
     var key = href.substr(href.lastIndexOf('/') + 1);
-   
-    
-    
-
+    console.log(key);
     var currUser = $cookieStore.get('currUser');
-
+    $scope.retro = new Retro();
+    $scope.retro = $resource("/api/retros/"+key).get();//Project.show({ id: key });
 
     $scope.projectURI = $location.$$absUrl;
 
     
+     
+    //$scope.project = Project.show({ id: key });
+    console.log($scope.retro);
+        
+    //$scope.project = $scope.aproject.retros;
 
     $scope.addParticipant = function(){
 
-          
-           
 
     }
 
