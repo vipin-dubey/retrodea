@@ -1,15 +1,15 @@
 var mongoose = require( 'mongoose' );
 var Retro = mongoose.model( 'Retro' );
-
 exports.retros = function(req,res){
 	Retro.find({},function(err,data){
 		res.json(data);
 	});
 console.log("retros route called:"+req);
+
 }
 
 exports.retro = function(req,res){
-	console.log("Single project route called:"+req);
+	console.log("Single project route called:"+req); 
 	Retro.findOne({_id:req.params.id},function(err,obj){
 		console.log(obj);
 		res.json(obj);
@@ -35,13 +35,14 @@ exports.createRetro = function(req,res){
 
 exports.updateRetro = function(req,res){
  		
- 		Retro.findByIdAndUpdate(req.params.id, {
-    				$set: { name: req.body.name}
+ 		Retro.findByIdAndUpdate(req.body._id, {
+    				$set: {likes: req.body.likes,dislikes:req.body.dislikes,suggestions:req.body.suggestions,participants:req.body.participants}
   				}, { upsert: true },
-  					function(err, obj) {
+  					function(err, obj) {  
     				return res.json(true);
   					});
- 		console.log('Update project called');
+     
+ 		console.log('Update Retro called');
 } 
 
 exports.destroyRetro = function(req,res){

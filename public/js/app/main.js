@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
 
 	console.log("dom is ready");
@@ -9,5 +11,7 @@ $(document).ready(function(){
 	$('.close').click(function(){
 		$(this).parent().parent().fadeOut('slow');
 	});
+
+	 
 
 });

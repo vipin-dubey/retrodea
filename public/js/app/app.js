@@ -1,7 +1,7 @@
 'use strict';
 
 /* App Module */
-var App = angular.module('App',['ngRoute','AppControllers','ngCookies','ngAnimate','ngResource']);
+var App = angular.module('App',['ngRoute','AppControllers','ngCookies','ngAnimate','ngResource','btford.socket-io']);
 
 App.config(['$routeProvider','$resourceProvider', function($routeProvider,$resourceProvider) {
     $routeProvider.
@@ -42,7 +42,7 @@ App.factory('Project', function($resource) {
   });
 
 App.factory('Retro', function($resource) {
-    return $resource('/api/retros/:_id',{ id:'@_id'},
+    return $resource('/api/retros/:_id',{_id:'@_id'},
     {
       'create':{method:'POST'},
       'index': {method:'GET',isArray:true},
@@ -52,4 +52,8 @@ App.factory('Retro', function($resource) {
     }
 
       );
+  });
+
+App.factory('socket', function (socketFactory) {
+    return socketFactory();
   });
