@@ -9,15 +9,18 @@
 			<h3>Projects</h3>
 			<hr/>
 			<div class="all-projects">
-			<div ng-repeat="project in projects">
-				<hr/>
-				<a ng-click="showProject(project)" class="col-md-4">{{project.name}}</a> :
-				<hr/>
-				<div ng-repeat="retro in project.retros">
-					<a ng-click="showRetro(retro)" class="col-md-4">{{retro.name}}-{{retro._id}}</a><span class="col-md-4">[<a href="javascript:" ng-click="editRetro(retro)">Edit</a>]</span><span class="col-md-4">[<a href="" ng-click="deleteRetro(retro)">Delete</a>]</span>
+			<ul>
+				<div ng-repeat="project in projects">
+				  <li>	<a ng-click="showProject(project)" class="col-md-4">{{project.name}}</a>
+				  	    <br/>
+						<ul>
+							<div ng-repeat="(id,retro) in project.retros">
+								<li><a ng-click="showRetro(retro._id)" class="col-md-4">{{id+1}} - {{retro.createdOn | date:'medium'}} </a></li>
+							</div>
+						</ul>
+                  </li> 
 				</div>
-
-			</div>
+			</ul>
 			</div>
 		</div>
 	</div>

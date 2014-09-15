@@ -62,9 +62,9 @@ AppControllers.controller('ProjectController',function($scope,$location,$cookieS
              Project.destroy(project, success, failure);   	
     }
 
-    $scope.showProject = function(project){
-        console.log("project id is :"+project._id);
-        $location.path("/home/"+project._id);
+    $scope.showRetro = function(id){
+        console.log("project id is :"+id);
+        $location.path("/home/"+id);
     } 
 
     // Functions to hanle retros

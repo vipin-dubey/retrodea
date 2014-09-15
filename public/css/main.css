@@ -106,3 +106,5 @@ footer{text-align: center}
   pointer-events: none;
 }
 .add-like-button img,.add-dislike-button img,.add-suggestion-button img{margin-top:-5px;}
+
+.all-projects ul li{list-style-type: none}
