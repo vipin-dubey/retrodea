@@ -16,7 +16,15 @@ io.set('transports', ['websocket',
                   'jsonp-polling', 
                   'polling']);
 
-io.sockets.on('connection', function(){
-	console.log("socket connected");
+io.sockets.on('connection', function(socket){
+	//console.log("socket connected");
+
+	socket.on('updated',function(){
+
+	 		//console.log('socket called from UI');
+
+	 		socket.broadcast.emit('RetroUpdated',{hello:'word'});
+	 });
+
 });                  
 

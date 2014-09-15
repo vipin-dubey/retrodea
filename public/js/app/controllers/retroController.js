@@ -156,6 +156,7 @@ AppControllers.controller('RetroController',function($routeParams,$scope,$locati
                function success(response) {
                     console.log("success", response)
                     //$location.path("/projects");
+                    socket.emit('updated',{hello:'word'}); 
                 }
 
                 function failure(response) {
@@ -238,6 +239,7 @@ AppControllers.controller('RetroController',function($routeParams,$scope,$locati
             $scope.newLike ='';
             $('.input-likes').hide();
             $scope.editRetro();
+           
         }
     }
 
@@ -269,6 +271,7 @@ AppControllers.controller('RetroController',function($routeParams,$scope,$locati
             $scope.newDislike='';
             $('.input-dislikes').hide();
             $scope.editRetro();
+
         }
     }
 
@@ -358,12 +361,11 @@ AppControllers.controller('RetroController',function($routeParams,$scope,$locati
             $cookieStore.remove('firstLoad');
         }
 
-        socket.on('retro:updated', function (d) {
-            /*$resource("/api/retros/"+key).get().success(function(data){
-                $scope.retro = data;
-             });*/
-
-          console.log("socket emit recieved");
+        socket.on('RetroUpdated', function (d) {
+            $resource("/api/retros/"+key).get().$promise.then(function (result) { 
+                $scope.retro = result; 
+            });
+          //console.log("socket emit recieved from server");
             
         });
 

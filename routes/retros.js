@@ -1,5 +1,6 @@
 var mongoose = require( 'mongoose' );
 var Retro = mongoose.model( 'Retro' );
+
 exports.retros = function(req,res){
 	Retro.find({},function(err,data){
 		res.json(data);
@@ -38,7 +39,8 @@ exports.updateRetro = function(req,res){
  		Retro.findByIdAndUpdate(req.body._id, {
     				$set: {likes: req.body.likes,dislikes:req.body.dislikes,suggestions:req.body.suggestions,participants:req.body.participants}
   				}, { upsert: true },
-  					function(err, obj) {  
+  					function(err, obj) {
+            //socket.emit('updated',{hello:'world'});  
     				return res.json(true);
   					});
      

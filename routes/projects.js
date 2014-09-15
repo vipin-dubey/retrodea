@@ -48,6 +48,7 @@ exports.updateProject = function(req,res){
   					});
 
  		console.log('Update project called');
+    //socket.emit('retro:updated',{hello:'word'});
 } 
 
 exports.destroyProject = function(req,res){
