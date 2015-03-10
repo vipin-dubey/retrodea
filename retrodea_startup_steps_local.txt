@@ -1,0 +1,13 @@
+Restrodea Startup Steps
+-------------------------------
+MongoDB Initialization Steps:-
+
+1. Go to bin directory inside mongodb installation folder.
+   cd c:/mongodb/bin
+2. Run mongod.exe -dbpath=C:/mongodb/data/db
+
+Express Server Initialization Steps:-
+
+1. Go to project folder
+   cd c:/ODC_APPS/retrodea
+2. Run node ./bin/www   
