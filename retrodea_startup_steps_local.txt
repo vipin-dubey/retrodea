@@ -9,5 +9,5 @@ MongoDB Initialization Steps:-
 Express Server Initialization Steps:-
 
 1. Go to project folder
-   cd c:/ODC_APPS/retrodea
+   cd c:/{YOUR_SYSTEM_PATH}/retrodea
 2. Run node ./bin/www   
